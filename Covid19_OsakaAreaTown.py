@@ -1,12 +1,10 @@
-# -*- coding: utf-8 -*-
 import dash  
 import dash_core_components as dcc   
 import dash_html_components as html
 import plotly.graph_objs as go  
-import pandas as pd 
+import pandas as pd
+import numpy as np
 import json 
-
-import os
 
 input_area_filename = 'Covid19_Osaka_AreaNumData.xlsx'
 input_town_filename = 'Covid19_Osaka_TownNumData.xlsx'
@@ -21,59 +19,57 @@ df_area_twon_initial = df_area_twon_initial.set_index('区域')
 
 app = dash.Dash(__name__)
 
-server = app.server
-
 app.layout = html.Div(children=[
     html.Div([
-        html.Div(
-            html.H1('大阪府 区域別 市町村別 新型コロナウィルス陽性者数',
-            style = {'textAlign': 'center'})
-        ),
-        html.Div([
-            dcc.Dropdown(
-                id = 'dropdown-for-area',
-                options = [{'label': i, 'value': i} for i in df_area_town['区域'].unique()],
-                searchable=False,
-                value = '北大阪'
-            ),
-            dcc.Graph(
-                id="area-daily-graph",
-            ),
-            dcc.Graph(
-                id="area-total-graph",
-            )
-        ], style={
-            'display': 'inline-block',
-            'width': '49%',
-        }),
-        html.Div([
-            dcc.Dropdown(
-                id = 'dropdown-for-town',
-                searchable=False,
-            ),
-            dcc.Graph(
-                id="town-daily-graph",
-            ),
-            dcc.Graph(
-                id="town-total-graph",
-            )
-        ], style={
-            'display': 'inline-block',
-            'width': '49%',
-        })
-    ])
+    	html.Div(
+        	html.H1('大阪府 区域別 市町村別 新型コロナウィルス陽性者数',
+        	style = {'textAlign': 'center'})
+    	),
+    	html.Div([
+    		dcc.Dropdown(
+        		id = 'dropdown-for-area',
+        		options = [{'label': i, 'value': i} for i in df_area_town['区域'].unique()],
+        		searchable=False,
+        		value = '北大阪'
+    		),
+    		dcc.Graph(
+        		id="area-daily-graph",
+    		),
+    		dcc.Graph(
+        		id="area-total-graph",
+    		)
+    	], style={
+    		'display': 'inline-block',
+    		'width': '49%',
+    	}),
+    	html.Div([
+    		dcc.Dropdown(
+        		id = 'dropdown-for-town',
+        		searchable=False,
+    		),
+    		dcc.Graph(
+        		id="town-daily-graph",
+    		),
+    		dcc.Graph(
+        		id="town-total-graph",
+    		)
+    	], style={
+    		'display': 'inline-block',
+    		'width': '49%',
+    	})
+	])
 ])
 
 def create_BarChart(dff, area, sel_deta):
-    return {
-        'data': [go.Bar(
-            x = dff['日付'],
-            y = dff[sel_deta]
-        )],
-        'layout':{
-            'title': '{}'.format(sel_deta)
-        }
-    }
+	return {
+    	'data': [go.Bar(
+    		x = dff['日付'],
+    		y = dff[sel_deta]
+    	)],
+    	'layout':{
+    		'title': '{}'.format(sel_deta)
+    	}
+	}
 
 @app.callback(
     dash.dependencies.Output('area-daily-graph', 'figure'),
@@ -112,15 +108,15 @@ def update_graph(factor):
     [dash.dependencies.Input('dropdown-for-area', 'value')]
 )
 def update_dropdown_control(factor):
-    df_town = df_area_town[df_area_town['区域']==factor]
-    return[{'label': i, 'value': i} for i in df_town['市町村'].unique()]
+	df_town = df_area_town[df_area_town['区域']==factor]
+	return[{'label': i, 'value': i} for i in df_town['市町村'].unique()]
 
 @app.callback(
     dash.dependencies.Output('dropdown-for-town', 'value'),
     [dash.dependencies.Input('dropdown-for-area', 'value')]
 )
 def update_dropdown_value(factor):
-    return df_area_twon_initial.at[factor,'市町村']
+	return df_area_twon_initial.at[factor,'市町村']
 
 if __name__ == '__main__':
     app.run_server(debug=True)
