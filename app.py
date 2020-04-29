@@ -75,13 +75,29 @@ def create_BarChart(dff, area, sel_deta):
         }
     }
 
+def create_BarScatterChart(dff, area, sel_bar_deta, sel_scatter_data):
+    return {
+        'data': [go.Bar(
+                    x = dff['日付'],
+                    y = dff[sel_bar_deta],
+                    name = sel_bar_deta),
+                 go.Scatter(
+                    x = dff['日付'],
+                    y = dff[sel_scatter_data],
+                    name = sel_scatter_data)
+        ],
+        'layout':{
+            'title': '{}'.format('{}と{}'.format(sel_bar_deta,sel_scatter_data))
+        }
+    }
+
 @app.callback(
     dash.dependencies.Output('area-daily-graph', 'figure'),
     [dash.dependencies.Input('dropdown-for-area', 'value')]
 )
 def update_graph(factor):
     dff = df_area_num_data[df_area_num_data['区域'] == factor]
-    return create_BarChart(dff, factor, '日別')
+    return create_BarScatterChart(dff, factor, '日別', '週平均')
 
 @app.callback(
     dash.dependencies.Output('area-total-graph', 'figure'),
@@ -97,7 +113,7 @@ def update_graph(factor):
 )
 def update_graph(factor):
     dff = df_town_num_data[df_town_num_data['市町村'] == factor]
-    return create_BarChart(dff, factor, '日別')
+    return create_BarScatterChart(dff, factor, '日別', '週平均')
 
 @app.callback(
     dash.dependencies.Output('town-total-graph', 'figure'),
