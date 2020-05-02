@@ -93,8 +93,9 @@ def create_2BarChart(dff, bar1_data, bar1_name, bar2_data, bar2_name, title):
         ],
         'layout':{
             'title': '{}'.format(title),
-            'barmode':'stack',
-            'bargap':0.5,
+            'barmode':'group',
+            'bargroupgap':0.0,
+            #'bargap':0.2,
         }
     }
 
