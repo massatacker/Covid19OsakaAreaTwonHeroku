@@ -85,16 +85,16 @@ def create_2BarChart(dff, bar1_data, bar1_name, bar2_data, bar2_name, title):
                     y = dff[bar1_data],
                     name = bar1_name,
                     marker_color = osaka_color),
-                    #maker = dict(color = osaka_color)),
                   go.Bar(
                     x = dff['日付'],
                     y = dff[bar2_data],
                     name = bar2_name,
                     marker_color = light_color)
-                    #maker = dict(color = light_color))
         ],
         'layout':{
-            'title': '{}'.format(title)
+            'title': '{}'.format(title),
+            'barmode':'stack',
+            'bargap':0.5,
         }
     }
 
