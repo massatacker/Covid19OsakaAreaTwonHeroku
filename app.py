@@ -148,7 +148,7 @@ def create_BarScatterChart(dff, area, bar_data, bar_name, scatter_data, scatter_
 )
 def update_graph(factor):
     dff = df_area_num_data[df_area_num_data['区域'] == factor]
-    return create_BarScatterChart(dff, '日別', '日別', '週平均', '7日平均', '陽性者')
+    return create_BarScatterChart(dff, factor, '日別', '日別', '週平均', '7日平均', '陽性者')
 
 @app.callback(
     dash.dependencies.Output('area-total-graph', 'figure'),
@@ -156,7 +156,7 @@ def update_graph(factor):
 )
 def update_graph(factor):
     dff = df_area_num_data[df_area_num_data['区域'] == factor]
-    return create_2BarChart(dff, '累計', '陽性', '退院・解除累計', '退院', '累計')
+    return create_2BarChart(dff, factor, '累計', '陽性', '退院・解除累計', '退院', '累計')
 
 @app.callback(
     dash.dependencies.Output('town-daily-graph', 'figure'),
@@ -164,7 +164,7 @@ def update_graph(factor):
 )
 def update_graph(factor):
     dff = df_town_num_data[df_town_num_data['市町村'] == factor]
-    return create_BarScatterChart(dff, '日別', '日別', '週平均', '7日平均', '陽性者')
+    return create_BarScatterChart(dff, factor, '日別', '日別', '週平均', '7日平均', '陽性者')
 
 @app.callback(
     dash.dependencies.Output('town-total-graph', 'figure'),
@@ -172,7 +172,7 @@ def update_graph(factor):
 )
 def update_graph(factor):
     dff = df_town_num_data[df_town_num_data['市町村'] == factor]
-    return create_2BarChart(dff, '累計', '陽性', '退院・解除累計', '退院', '累計')
+    return create_2BarChart(dff, factor, '累計', '陽性', '退院・解除累計', '退院', '累計')
 
 @app.callback(
     dash.dependencies.Output('dropdown-for-town', 'options'),
