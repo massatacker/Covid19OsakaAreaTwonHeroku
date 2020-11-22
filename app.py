@@ -120,6 +120,31 @@ def create_2BarChart(dff, area, bar1_data, bar1_name, bar2_data, bar2_name, titl
         },
     }
 
+def create_1BarChart(dff, area, bar1_data, bar1_name, title):
+    return {
+        'data': [go.Bar(
+                    x = dff['日付'],
+                    y = dff[bar1_data],
+                    name = bar1_name,
+                    marker_color = osaka_color),
+                  #go.Bar(
+                  #  x = dff['日付'],
+                  #  y = dff[bar2_data],
+                  #  name = bar2_name,
+                  #  marker_color = light_color)
+                  ],
+        'layout':{
+            'margin':{'l':30, 'r':20, 't':100, 'b':30},
+            'legend':{"x":0.85, "y":1.15},
+            'title': '{} {}'.format(area, title),
+            'barmode':'group',
+            'bargroupgap':0.0,
+            'xaxis':{'fixedrange':True, 'tickformat':'%_m/%-d'},
+            'yaxis':{'fixedrange':True},
+            #'bargap':0.2,
+        },
+    }
+
 def create_BarScatterChart(dff, area, bar_data, bar_name, scatter_data, scatter_name, title):
     return {
         'data': [go.Bar(
@@ -156,7 +181,8 @@ def update_graph(factor):
 )
 def update_graph(factor):
     dff = df_area_num_data[df_area_num_data['区域'] == factor]
-    return create_2BarChart(dff, factor, '累計', '陽性', '退院・解除累計', '退院', '累計')
+    return create_1BarChart(dff, factor, '累計', '陽性', '累計')
+    #return create_2BarChart(dff, factor, '累計', '陽性', '退院・解除累計', '退院', '累計')
 
 @app.callback(
     dash.dependencies.Output('town-daily-graph', 'figure'),
@@ -172,7 +198,8 @@ def update_graph(factor):
 )
 def update_graph(factor):
     dff = df_town_num_data[df_town_num_data['市町村'] == factor]
-    return create_2BarChart(dff, factor, '累計', '陽性', '退院・解除累計', '退院', '累計')
+    return create_1BarChart(dff, factor, '累計', '陽性', '累計')
+    #return create_2BarChart(dff, factor, '累計', '陽性', '退院・解除累計', '退院', '累計')
 
 @app.callback(
     dash.dependencies.Output('dropdown-for-town', 'options'),
