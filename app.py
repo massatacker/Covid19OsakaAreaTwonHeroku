@@ -66,8 +66,8 @@ app.layout = html.Div(children=[
                 id="area-total-graph",
                 #config = {'staticPlot': True},
             ),
-            html.H5(discharge_comment,
-            style = {'color':comment_color})
+            #html.H5(discharge_comment,
+            #style = {'color':comment_color})
         ],
         style={"verticalAlign": "top"},
         className='graph_box',
@@ -86,8 +86,8 @@ app.layout = html.Div(children=[
                 id="town-total-graph",
                 #config = {'staticPlot': True},
             ),
-            html.H5(discharge_comment,
-            style = {'color':comment_color})
+            #html.H5(discharge_comment,
+            #style = {'color':comment_color})
         ],
         style={"verticalAlign": "top"},        
         className='graph_box',
