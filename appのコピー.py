@@ -29,8 +29,7 @@ title_str = '大阪府 区域別 市町村別 新型コロナウィルス陽性�
 discharge_comment = '※退院には死亡退院を含む'
 
 app = dash.Dash(__name__, meta_tags=[
-        {"name": "viewport", "content": "width=device-width, initial-scale=1.0"},
-        {"name": "google-site-verification", "content": "VnMLuf8OB37rHc2zxfWBWZO3PC86241f75o6OsIgK_4"}
+        {"name": "viewport", "content": "width=device-width, initial-scale=1.0"}
     ]
 )
 app.title = title_str
