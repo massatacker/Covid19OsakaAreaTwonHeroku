@@ -40,7 +40,7 @@ server = app.server
 app.layout = html.Div(children=[
     html.Div([
         html.Div([
-            html.H2(title_str,
+            html.H1(title_str,
             style = {'textAlign': 'center','margin-bottom':'0%'}),
             html.Div([
                 #html.H4(f'{last_update.date()}更新',
