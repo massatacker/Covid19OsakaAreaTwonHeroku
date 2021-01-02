@@ -25,7 +25,7 @@ light_color = '#1E90FF'
 comment_color = '#C0C0C0'
 update_color = '#777777'
 
-title_str = '大阪府 地域別 市町村別 新型コロナウィルス陽性者数'
+title_str = '大阪府 地域別 市町村別 新型コロナウイルス陽性者数'
 discharge_comment = '※退院には死亡退院を含む'
 
 app = dash.Dash(__name__, meta_tags=[
