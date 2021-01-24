@@ -7,8 +7,8 @@ import pandas as pd
 
 import os
 
-input_area_filename = 'Covid19_Osaka_Area2NumData.xlsx'
-input_town_filename = 'Covid19_Osaka_TownNumData.xlsx'
+input_area_filename = 'Covid19_Osaka_Area2NumPopuData.xlsx'
+input_town_filename = 'Covid19_Osaka_TownNumPopuData.xlsx'
 area_town_list_filename = 'OsakaArea2TownList.xlsx'
 
 df_area_num_data = pd.read_excel(input_area_filename)

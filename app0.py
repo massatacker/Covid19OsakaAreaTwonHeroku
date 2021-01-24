@@ -7,16 +7,16 @@ import pandas as pd
 
 import os
 
-input_area_filename = 'Covid19_Osaka_AreaNumData.xlsx'
+input_area_filename = 'Covid19_Osaka_Area2NumData.xlsx'
 input_town_filename = 'Covid19_Osaka_TownNumData.xlsx'
-area_town_list_filename = 'OsakaAreaTownList.xlsx'
+area_town_list_filename = 'OsakaArea2TownList.xlsx'
 
 df_area_num_data = pd.read_excel(input_area_filename)
 df_town_num_data = pd.read_excel(input_town_filename)
 df_area_town = pd.read_excel(area_town_list_filename)
 
 df_area_twon_initial = df_area_town[ df_area_town['初期値']==1 ]
-df_area_twon_initial = df_area_twon_initial.set_index('区域')
+df_area_twon_initial = df_area_twon_initial.set_index('地域')
 
 last_update = df_town_num_data.iloc[-1]['日付']
 
@@ -25,7 +25,7 @@ light_color = '#1E90FF'
 comment_color = '#C0C0C0'
 update_color = '#777777'
 
-title_str = '大阪府 区域別 市町村別 新型コロナウィルス陽性者数'
+title_str = '大阪府 地域別 市町村別 新型コロナウイルス陽性者数'
 discharge_comment = '※退院には死亡退院を含む'
 
 app = dash.Dash(__name__, meta_tags=[
@@ -40,7 +40,7 @@ server = app.server
 app.layout = html.Div(children=[
     html.Div([
         html.Div([
-            html.H2(title_str,
+            html.H1(title_str,
             style = {'textAlign': 'center','margin-bottom':'0%'}),
             html.Div([
                 #html.H4(f'{last_update.date()}更新',
@@ -54,10 +54,10 @@ app.layout = html.Div(children=[
         html.Div([
             dcc.Dropdown(
                 id = 'dropdown-for-area',
-                options = [{'label': i, 'value': i} for i in df_area_town['区域'].unique()],
+                options = [{'label': i, 'value': i} for i in df_area_town['地域'].unique()],
                 searchable=False,
                 clearable=False,
-                value = '北大阪'
+                value = '豊能'
             ),
             dcc.Graph(
                 id="area-daily-graph",
@@ -173,7 +173,7 @@ def create_BarScatterChart(dff, area, bar_data, bar_name, scatter_data, scatter_
     [dash.dependencies.Input('dropdown-for-area', 'value')]
 )
 def update_graph(factor):
-    dff = df_area_num_data[df_area_num_data['区域'] == factor]
+    dff = df_area_num_data[df_area_num_data['地域'] == factor]
     return create_BarScatterChart(dff, factor, '日別', '日別', '週平均', '7日平均', '陽性者')
 
 @app.callback(
@@ -181,7 +181,7 @@ def update_graph(factor):
     [dash.dependencies.Input('dropdown-for-area', 'value')]
 )
 def update_graph(factor):
-    dff = df_area_num_data[df_area_num_data['区域'] == factor]
+    dff = df_area_num_data[df_area_num_data['地域'] == factor]
     return create_1BarChart(dff, factor, '累計', '陽性', '累計')
     #return create_2BarChart(dff, factor, '累計', '陽性', '退院・解除累計', '退院', '累計')
 
@@ -207,7 +207,7 @@ def update_graph(factor):
     [dash.dependencies.Input('dropdown-for-area', 'value')]
 )
 def update_dropdown_control(factor):
-    df_town = df_area_town[df_area_town['区域']==factor]
+    df_town = df_area_town[df_area_town['地域']==factor]
     return[{'label': i, 'value': i} for i in df_town['市町村'].unique()]
 
 @app.callback(
