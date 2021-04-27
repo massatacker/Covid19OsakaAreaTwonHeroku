@@ -49,19 +49,7 @@ app.layout = html.Div(children=[
                 html.A('出典:covid19-osaka.info',
                 href = 'https://covid19-osaka.info/'),
             ],
-            style={'textAlign':'right','margin-bottom':'0%','margin-right':'2%'}),
-            html.Div([
-                dcc.RadioItems(
-                    id = 'radio_real_per_popu',
-                    options=[
-                        {'label': '実数', 'value': 'real_persons'},
-                        {'label': '人口10万人当り', 'value': 'per_popu_ht'},
-                    ],
-                    value='real_persons',
-                    labelStyle={'margin-left':'1%','margin-right':'1%'},
-                    ),
-            ],
-            style={'textAlign':'center','margin-bottom':'1%'}),                
+            style={'textAlign':'right','margin-bottom':'1%','margin-right':'2%'}),
         ]),
         html.Div([
             dcc.Dropdown(
@@ -180,61 +168,39 @@ def create_BarScatterChart(dff, area, bar_data, bar_name, scatter_data, scatter_
         }
     }
 
-
-
-
 @app.callback(
     dash.dependencies.Output('area-daily-graph', 'figure'),
-    [dash.dependencies.Input('dropdown-for-area', 'value'),
-     dash.dependencies.Input('radio_real_per_popu', 'value'),
-    ]
+    [dash.dependencies.Input('dropdown-for-area', 'value')]
 )
-def update_graph(dropdown_value, radio_value):
-    dff = df_area_num_data[df_area_num_data['地域'] == dropdown_value]
-    if radio_value == 'real_persons':
-        return create_BarScatterChart(dff, dropdown_value, '日別', '日別', '週平均', '7日平均', '陽性者')
-    else:
-        return create_1BarChart(dff, dropdown_value, '日別人口10万人当たり', '陽性', '陽性者')
+def update_graph(factor):
+    dff = df_area_num_data[df_area_num_data['地域'] == factor]
+    return create_BarScatterChart(dff, factor, '日別', '日別', '週平均', '7日平均', '陽性者')
 
 @app.callback(
     dash.dependencies.Output('area-total-graph', 'figure'),
-    [dash.dependencies.Input('dropdown-for-area', 'value'),
-     dash.dependencies.Input('radio_real_per_popu', 'value'),
-    ]
+    [dash.dependencies.Input('dropdown-for-area', 'value')]
 )
-def update_graph(dropdown_value, radio_value):
-    dff = df_area_num_data[df_area_num_data['地域'] == dropdown_value]
-    if radio_value == 'real_persons':
-        return create_1BarChart(dff, dropdown_value, '累計', '陽性', '累計')
-    else:
-        return create_1BarChart(dff, dropdown_value, '週累積人口10万人当たり', '陽性', '週累積')
+def update_graph(factor):
+    dff = df_area_num_data[df_area_num_data['地域'] == factor]
+    return create_1BarChart(dff, factor, '累計', '陽性', '累計')
+    #return create_2BarChart(dff, factor, '累計', '陽性', '退院・解除累計', '退院', '累計')
 
 @app.callback(
     dash.dependencies.Output('town-daily-graph', 'figure'),
-    [dash.dependencies.Input('dropdown-for-town', 'value'),
-     dash.dependencies.Input('radio_real_per_popu', 'value'),
-    ]
+    [dash.dependencies.Input('dropdown-for-town', 'value')]
 )
-def update_graph(dropdown_value, radio_value):
-    dff = df_town_num_data[df_town_num_data['市町村'] == dropdown_value]
-    if radio_value == 'real_persons':
-        return create_BarScatterChart(dff, dropdown_value, '日別', '日別', '週平均', '7日平均', '陽性者')
-    else:
-        return create_1BarChart(dff, dropdown_value, '日別人口10万人当たり', '陽性', '陽性者')
+def update_graph(factor):
+    dff = df_town_num_data[df_town_num_data['市町村'] == factor]
+    return create_BarScatterChart(dff, factor, '日別', '日別', '週平均', '7日平均', '陽性者')
 
 @app.callback(
     dash.dependencies.Output('town-total-graph', 'figure'),
-    [dash.dependencies.Input('dropdown-for-town', 'value'),
-     dash.dependencies.Input('radio_real_per_popu', 'value'),
-    ]
+    [dash.dependencies.Input('dropdown-for-town', 'value')]
 )
-def update_graph(dropdown_value, radio_value):
-    dff = df_town_num_data[df_town_num_data['市町村'] == dropdown_value]
-    if radio_value == 'real_persons':
-        return create_1BarChart(dff, dropdown_value, '累計', '陽性', '累計')
-    else:
-        return create_1BarChart(dff, dropdown_value, '週累積人口10万人当たり', '陽性', '週累積')
-
+def update_graph(factor):
+    dff = df_town_num_data[df_town_num_data['市町村'] == factor]
+    return create_1BarChart(dff, factor, '累計', '陽性', '累計')
+    #return create_2BarChart(dff, factor, '累計', '陽性', '退院・解除累計', '退院', '累計')
 
 @app.callback(
     dash.dependencies.Output('dropdown-for-town', 'options'),
