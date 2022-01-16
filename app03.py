@@ -152,7 +152,7 @@ def create_1BarChart(dff, area, bar1_data, bar1_name, title):
             'title': '{} {}'.format(area, title),
             'barmode':'group',
             'bargroupgap':0.0,
-            'xaxis':{'tickformat':'%_m/%-d', 'rangeslider':{'visible':True}},
+            'xaxis':{'fixedrange':True, 'tickformat':'%_m/%-d'},
             'yaxis':{'fixedrange':True},
             #'bargap':0.2,
         },
@@ -175,7 +175,7 @@ def create_BarScatterChart(dff, area, bar_data, bar_name, scatter_data, scatter_
             'margin':{'l':30, 'r':20, 't':100, 'b':30},
             'legend':{"x":0.85, "y":1.15},
             'title': '{} {}'.format(area, title),
-            'xaxis':{'tickformat':'%_m/%-d', 'rangeslider':{'visible':True}},
+            'xaxis':{'fixedrange':True, 'tickformat':'%_m/%-d'},
             'yaxis':{'fixedrange':True},
         }
     }
