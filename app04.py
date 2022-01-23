@@ -46,10 +46,8 @@ app.layout = html.Div(children=[
                 #html.H4(f'{last_update.date()}更新',
                 html.H4('{}更新'.format(last_update.strftime('%Y/%m/%d')),
                 style = {'margin':'0%', 'color':update_color}),
-                html.A('出典:大阪府/新型コロナウイルス感染症患者の発生状況について',
-                href = 'https://www.pref.osaka.lg.jp/iryo/osakakansensho/happyo.html'),
-                #html.A('出典:covid19-osaka.info',
-                #href = 'https://covid19-osaka.info/'),
+                html.A('出典:covid19-osaka.info',
+                href = 'https://covid19-osaka.info/'),
             ],
             style={'textAlign':'right','margin-bottom':'0%','margin-right':'2%'}),
             html.Div([
@@ -151,18 +149,10 @@ def create_1BarChart(dff, area, bar1_data, bar1_name, title):
         'layout':{
             'margin':{'l':30, 'r':20, 't':100, 'b':30},
             'legend':{"x":0.85, "y":1.15},
-            'title':'{} {}'.format(area, title),
+            'title': '{} {}'.format(area, title),
             'barmode':'group',
             'bargroupgap':0.0,
-            'xaxis':{'tickformat':'%_m/%-d', 
-                     'rangeslider':{'visible':True},
-                     'rangeselector':{
-                        'buttons':[{'count':1,'label':"1m",'step':"month",'stepmode':"backword"},
-                                   {'count':6,'label':"6m",'step':"month",'stepmode':"backword"},
-                                   {'count':1,'label':"YTD",'step':"year",'stepmode':"todate"},
-                                   {'count':1,'label':"1y",'step':"year",'stepmode':"backword"},
-                                   {'step':"all"}]}
-                    },
+            'xaxis':{'tickformat':'%_m/%-d', 'rangeslider':{'visible':True}},
             'yaxis':{'fixedrange':True},
             #'bargap':0.2,
         },
@@ -184,16 +174,8 @@ def create_BarScatterChart(dff, area, bar_data, bar_name, scatter_data, scatter_
         'layout':{
             'margin':{'l':30, 'r':20, 't':100, 'b':30},
             'legend':{"x":0.85, "y":1.15},
-            'title':'{} {}'.format(area, title),
-            'xaxis':{'tickformat':'%_m/%-d', 
-                     'rangeslider':{'visible':True},
-                     'rangeselector':{
-                        'buttons':[{'count':1,'label':"1m",'step':"month",'stepmode':"backword"},
-                                   {'count':6,'label':"6m",'step':"month",'stepmode':"backword"},
-                                   {'count':1,'label':"YTD",'step':"year",'stepmode':"todate"},
-                                   {'count':1,'label':"1y",'step':"year",'stepmode':"backword"},
-                                   {'step':"all"}]}
-                    },
+            'title': '{} {}'.format(area, title),
+            'xaxis':{'tickformat':'%_m/%-d', 'rangeslider':{'visible':True}},
             'yaxis':{'fixedrange':True},
         }
     }
