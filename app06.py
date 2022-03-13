@@ -62,16 +62,10 @@ app.layout = html.Div(children=[
                 #html.H4(f'{last_update.date()}更新',
                 html.H4('{}更新'.format(last_update.strftime('%Y/%m/%d')),
                 style = {'margin':'0%', 'color':update_color}),
-                html.Div([
-                    html.A('出典:大阪府/新型コロナウイルス感染症患者の発生状況について',
-                            href = 'https://www.pref.osaka.lg.jp/iryo/osakakansensho/happyo.html',
-                            style = {'margin':'0%'})
-                ]),
-                html.Div([
-                    html.A('出典:大阪市/感染症・病気に関すること',
-                            href = 'https://www.city.osaka.lg.jp/kenko/page/0000502869.html',
-                            style = {'margin':'0%'})
-                ]),
+                html.A('出典:大阪府/新型コロナウイルス感染症患者の発生状況について',
+                href = 'https://www.pref.osaka.lg.jp/iryo/osakakansensho/happyo.html'),
+                #html.A('出典:covid19-osaka.info',
+                #href = 'https://covid19-osaka.info/'),
             ],
             style={'textAlign':'right','margin-bottom':'0%','margin-right':'2%'}),
             html.Div([
