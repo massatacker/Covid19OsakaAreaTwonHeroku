@@ -240,7 +240,7 @@ def create_BarScatterChart(dff, area, bar_data, bar_name, scatter_data, scatter_
         }
     }
 
-def create_ScatterIncRatioChart(dff, area, this_week_col, last_week_col, title, r_min_zero):
+def create_ScatterIncRatioChart(dff, area, this_week_col, last_week_col, title):
     # グラフの表示期間を限定する
     # 開始：inc_dec_start_date
     # 終了：最終更新日
@@ -248,22 +248,12 @@ def create_ScatterIncRatioChart(dff, area, this_week_col, last_week_col, title, 
     last_week_data = dff[last_week_col]
     this_week_data_max = this_week_data.max()
     last_week_data_max = last_week_data.max()
-    this_week_data_min = this_week_data.min()
-    last_week_data_min = last_week_data.min()
     # グラフスケールの最大値を計算する
     if this_week_data_max > last_week_data_max:
         r_max = this_week_data_max
     else:
         r_max = last_week_data_max
     r_max = r_max*1.05
-    # グラフスケールの最小値を計算する
-    if this_week_data_min < last_week_data_min:
-        r_min = this_week_data_min
-    else:
-        r_min = last_week_data_min
-    r_min = r_min*0.95
-    if r_min <= r_min_zero:
-        r_min = 0
     # センターラインデータを作成する
     c_data = [0, r_max]
     # 増加・減少ラインデータを作成する
@@ -368,8 +358,7 @@ def create_ScatterIncRatioChart(dff, area, this_week_col, last_week_col, title, 
         dict(text = '{0}時点<br>前週増加比{1:.2f}'.format(last_update.strftime('%Y/%-m/%-d'),last_week_ratio),
              font = dict(size = 14),
              x = c_data[-1],
-             y = c_data[-1]*0.05+r_min,
-             #y = c_data[-1]*0.05,
+             y = c_data[-1]*0.05,
              xref = 'x',
              yref = 'y',
              align = 'left',
@@ -439,13 +428,13 @@ def create_ScatterIncRatioChart(dff, area, this_week_col, last_week_col, title, 
             'title':'{} {}'.format(area, title),
             'xaxis':{
                      #'fixedrange':True, 
-                     'range':(r_min, r_max),
+                     'range':(0, r_max),
                      'title':{'text':'前週累計', 'font':{'size':12},'standoff':0},
                      #'constrain':'domain',
                      },
             'yaxis':{
                      #'fixedrange':True, 
-                     'range':(r_min, r_max),
+                     'range':(0, r_max),
                      'title':{'text':'週累計', 'font':{'size':12},'standoff':0},
                      'scaleanchor':'x',
                      'scaleratio':1,
@@ -471,9 +460,9 @@ def update_graph(dropdown_value, radio_irp_value, radio_rpp_value, rs_value):
     dff = dff[(dff['日付']>=from_datetime)&(dff['日付'] <=to_datetime)]
     if radio_irp_value == 'inc_ratio':
         if radio_rpp_value == 'real_persons': 
-            return create_ScatterIncRatioChart(dff, dropdown_value, '週累積', '先週累積', '前週増加比', 35)
+            return create_ScatterIncRatioChart(dff, dropdown_value, '週累積', '先週累積', '前週増加比')
         else:
-            return create_ScatterIncRatioChart(dff, dropdown_value, '週累積人口10万人当たり', '先週累積人口10万人当たり', '前週増加比', 1.4)
+            return create_ScatterIncRatioChart(dff, dropdown_value, '週累積人口10万人当たり', '先週累積人口10万人当たり', '前週増加比')
     else:
         if radio_rpp_value == 'real_persons':
             return create_BarScatterChart(dff, dropdown_value, '日別', '日別', '週平均', '7日平均', '陽性者')
@@ -494,9 +483,9 @@ def update_graph(dropdown_value, radio_irp_value, radio_rpp_value, rs_value):
     dff = dff[(dff['日付']>=from_datetime)&(dff['日付'] <=to_datetime)]
     if radio_irp_value == 'inc_ratio':
         if radio_rpp_value == 'real_persons': 
-            return create_ScatterIncRatioChart(dff, dropdown_value, '週累積', '先週累積', '前週増加比', 35)
+            return create_ScatterIncRatioChart(dff, dropdown_value, '週累積', '先週累積', '前週増加比')
         else:
-            return create_ScatterIncRatioChart(dff, dropdown_value, '週累積人口10万人当たり', '先週累積人口10万人当たり', '前週増加比', 1.4)
+            return create_ScatterIncRatioChart(dff, dropdown_value, '週累積人口10万人当たり', '先週累積人口10万人当たり', '前週増加比')
     else:
         if radio_rpp_value == 'real_persons':
             return create_BarScatterChart(dff, dropdown_value, '日別', '日別', '週平均', '7日平均', '陽性者')
