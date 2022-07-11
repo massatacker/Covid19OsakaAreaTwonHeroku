@@ -12,6 +12,7 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
 numpy==1.21.2
+openpyxl=3.0.9
 pandas==1.4.1
 plotly==5.6.0
 python-dateutil==2.8.2
