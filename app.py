@@ -35,7 +35,8 @@ dec_text_color = '#228B22' # forestgreen #'#006400' # darkgreen
 title_str = '大阪府 地域別 市町村別 新型コロナウイルス陽性者数'
 discharge_comment = '※退院には死亡退院を含む'
 
-inc_dec_start_date = datetime.datetime(2022, 6, 20)
+inc_dec_start_date = datetime.datetime(2022, 8, 1)
+#inc_dec_start_date = datetime.datetime(2022, 6, 20)
 #inc_dec_start_date = datetime.datetime(2022, 5, 16)
 #inc_dec_start_date = datetime.datetime(2022, 5, 1)
 #inc_dec_start_date = datetime.datetime(2022, 4, 1)
